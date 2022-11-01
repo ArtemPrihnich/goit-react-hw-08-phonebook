@@ -6,12 +6,15 @@ import { ThemeProvider } from '@emotion/react'
 import { theme } from './utils/theme'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
+import { BrowserRouter }  from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </ThemeProvider>
     </Provider>
   </React.StrictMode>
