@@ -1,3 +1,4 @@
+import UserMenu from 'components/UserMenu/UserMenu'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
@@ -20,6 +21,7 @@ export default function AppBar() {
             <div>
                 {authItems.map(({ href, text }) => <NavLink to={href} key={href}>{text}</NavLink>)}
             </div>
+            <UserMenu />
         </header>
     )
 }
