@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { Button, Item, List } from './ContactsList.styled'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchContacts } from "redux/operations";
+import { fetchContacts } from "redux/contacts/contacts-operations";
 import { getError, getFilteredContacts, getIsLoading } from 'redux/contacts/contacts-selectors';
-import { deleteContact } from 'redux/operations';
+import { deleteContact } from 'redux/contacts/contacts-operations';
 import Loader from 'components/Loader/Loader';
 import ErrorNotify from 'components/ErrorNotify/ErrorNotify';
 
@@ -25,7 +25,7 @@ export default function ContactsList() {
     return (
         <List>
             {loading && <Loader />}
-            {!error && contacts?.map(({ name, phone, id }) => {
+            {!error && !loading && contacts?.map(({ name, phone, id }) => {
                 return (
                     <Item key={id}>{name}: {phone} <Button onClick={() => removeContact(id)}>delete</Button></Item>
                 )

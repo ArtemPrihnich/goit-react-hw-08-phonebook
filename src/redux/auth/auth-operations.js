@@ -32,7 +32,7 @@ export const logIn = createAsyncThunk('auth/logIn', async userData => {
     }
 })
 
-export const logOut = createAsyncThunk('auth/logOut', async () => {
+export const logOut = createAsyncThunk('auth/logOut', async (_, thunkAPI) => {
     try {
         await axios.post('/users/logout')
         token.unset()
@@ -44,13 +44,14 @@ export const logOut = createAsyncThunk('auth/logOut', async () => {
 export const refreshCurrentUser = createAsyncThunk('auth/refreshCurrentUser', async (_, thunkAPI) => {
     const state = thunkAPI.getState()
     const prevToken = state.auth.token
+    console.log(prevToken)
 
     if (!prevToken) {
         return thunkAPI.rejectWithValue()
     }
 
     try {
-        token.set(prevToken)
+        await token.set(prevToken)
         const { data } = await axios.get('/users/current')
         return data
     } catch (error) {

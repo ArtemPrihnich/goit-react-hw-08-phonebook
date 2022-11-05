@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 import { Button, Form, Input, Label } from './ContactsForm.styled';
 import { useSelector, useDispatch } from 'react-redux'
 import { getFilteredContacts } from 'redux/contacts/contacts-selectors';
-import { addContact } from 'redux/operations';
+import { addContact } from 'redux/contacts/contacts-operations';
 // import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export default function ContactsForm() {
