@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Button, Item, List } from './ContactsList.styled'
+// import { Button, Item, List } from './ContactsList.styled'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchContacts } from "redux/contacts/contacts-operations";
 import { getError, getFilteredContacts, getIsLoading } from 'redux/contacts/contacts-selectors';
@@ -23,14 +23,14 @@ export default function ContactsList() {
     }
 
     return (
-        <List>
+        <ul>
             {loading && <Loader />}
             {!error && !loading && contacts?.map(({ name, phone, id }) => {
                 return (
-                    <Item key={id}>{name}: {phone} <Button onClick={() => removeContact(id)}>delete</Button></Item>
+                    <li key={id}>{name}: {phone} <button onClick={() => removeContact(id)}>delete</button></li>
                 )
             })}
             {!loading && error && <ErrorNotify />}
-        </List>
+        </ul>
     )
 }

@@ -1,12 +1,17 @@
+import { Box, Container } from '@chakra-ui/react'
 import AppBar from 'components/AppBar/AppBar'
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 
 export default function Layout() {
     return (
-        <div>
+        <Box bg='gray.100' h='100vh'>
             <AppBar />
-            <Outlet />
-        </div>
+            <Container maxW='container.xl'>
+                <Suspense>
+                    <Outlet />
+                </Suspense>
+            </Container>
+        </Box>
     )
 }

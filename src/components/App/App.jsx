@@ -2,14 +2,15 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout from 'components/Layout/Layout';
 import Home from 'pages/Home';
-import Contacts from 'pages/Contacts';
-import LoginForm from 'components/LoginForm/LoginForm';
-import RegisterForm from 'components/RegisterForm/RegisterForm';
 import { useDispatch } from 'react-redux'
-import { useEffect } from 'react';
+import { useEffect, lazy } from 'react';
 import { refreshCurrentUser } from 'redux/auth/auth-operations';
 import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
 import PublicRoute from 'components/PublicRoute/PublicRoute';
+
+const Contacts = lazy(() => import('../../pages/Contacts'))
+const RegisterForm = lazy(() => import('../../pages/RegisterForm'))
+const LoginForm = lazy(() => import('../../pages/LoginForm'))
 
 export default function App() {
   const dispatch = useDispatch()

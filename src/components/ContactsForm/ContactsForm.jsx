@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { nanoid } from 'nanoid'
-import { Button, Form, Input, Label } from './ContactsForm.styled';
+// import { Button, Form, Input, Label } from './ContactsForm.styled';
 import { useSelector, useDispatch } from 'react-redux'
 import { getFilteredContacts } from 'redux/contacts/contacts-selectors';
 import { addContact } from 'redux/contacts/contacts-operations';
@@ -50,9 +50,9 @@ export default function ContactsForm() {
     }
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Label htmlFor={contactNameInpuId}>Name</Label>
-            <Input
+        <form onSubmit={handleSubmit}>
+            <label htmlFor={contactNameInpuId}>Name</label>
+            <input
                 type="text"
                 name="name"
                 value={name}
@@ -63,8 +63,8 @@ export default function ContactsForm() {
                 placeholder='Taras Shevchenko'
                 onChange={handleChange}
             />
-            <Label htmlFor={contactNumberInputId}>Phone Number</Label>
-            <Input
+            <label htmlFor={contactNumberInputId}>Phone Number</label>
+            <input
                 type="tel"
                 name="number"
                 value={number}
@@ -75,8 +75,8 @@ export default function ContactsForm() {
                 placeholder='+38 (012) 345 67 89'
                 onChange={handleChange}
             />
-            <Button>Add Contact</Button>
-        </Form>
+            <button>Add Contact</button>
+        </form>
     )
 }
 

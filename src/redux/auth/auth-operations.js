@@ -51,7 +51,7 @@ export const refreshCurrentUser = createAsyncThunk('auth/refreshCurrentUser', as
     }
 
     try {
-        await token.set(prevToken)
+        token.set(prevToken)
         const { data } = await axios.get('/users/current')
         return data
     } catch (error) {
