@@ -1,5 +1,4 @@
 import React from 'react'
-// import { Item } from './ErrorNotify.styled'
 import { useSelector } from "react-redux";
 import { getError } from 'redux/contacts/contacts-selectors';
 
@@ -8,7 +7,9 @@ export default function ErrorNotify() {
 
     return (
         <>
-            <li>Oops, something went wrong :( {error}</li>
+            <div style={{ display: 'block', width: '450px', margin: '0 auto', textAlign: 'center', paddingTop: '100px', fontSize: '28px' }}>
+                Oops, something went wrong :( {error}
+            </div>
         </>
     )
 }

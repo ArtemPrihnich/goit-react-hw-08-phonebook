@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom'
 
 export default function Layout() {
     return (
-        <Box bg='gray.100' h='100vh'>
+        <Box bg='gray.100' minH='100vh'>
             <AppBar />
             <Container maxW='container.xl'>
                 <Suspense>

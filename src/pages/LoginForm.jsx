@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid'
 import { useState } from 'react'
 import { logIn } from 'redux/auth/auth-operations'
 import { useDispatch } from 'react-redux'
+import { FormControl, Input, FormLabel, Button, Box, Flex } from '@chakra-ui/react'
 
 export default function LoginForm() {
     const [email, setEmail] = useState('')
@@ -36,26 +37,16 @@ export default function LoginForm() {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor={emailInputId}>Email</label>
-                <input
-                    type="text"
-                    id={emailInputId}
-                    name='email'
-                    value={email}
-                    onChange={handleChange}
-                />
-                <label htmlFor={passwordInputId}>Password</label>
-                <input
-                    type="text"
-                    id={passwordInputId}
-                    name='password'
-                    value={password}
-                    onChange={handleChange}
-                />
-                <button type='submit'>Submit</button>
-            </form>
-        </div>
+        <Box maxW={700} ml='auto' mr='auto' pt='10' pb='10'>
+            <FormControl as='form' onSubmit={handleSubmit} style={{ border: '1px solid #A0AEC0', padding: '10px 20px', borderRadius: '10px' }}>
+                <FormLabel htmlFor={emailInputId}>Email</FormLabel>
+                <Input isRequired type='email' name='email' onChange={handleChange} id={emailInputId}></Input>
+                <FormLabel htmlFor={passwordInputId}>Password</FormLabel>
+                <Input isRequired type='password' name='password' onChange={handleChange} id={passwordInputId}></Input>
+                <Flex justify='center'>
+                    <Button w={200} colorScheme='blackAlpha' mt='6' type='submit'> Login </Button>
+                </Flex>
+            </FormControl>
+        </Box>
     )
 }
