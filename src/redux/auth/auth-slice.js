@@ -1,34 +1,65 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {logIn, logOut, refreshCurrentUser, registerUser} from '../auth/auth-operations'
+import { logIn, logOut, refreshCurrentUser, registerUser } from '../auth/auth-operations'
+
+const handlePending = state => {
+  state.isLoading = true;
+};
+const handleRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+};
 
 const initialState = {
     user: { name: null, email: null },
     token: null,
-    isLogginIn: false
+    error: null,
+    isLogginIn: false,
+    isLoading: false,
+    isUserLoading: false,
 }
 
 const authSlice = createSlice({
     name: 'auth',
     initialState,
     extraReducers: {
+        [registerUser.pending]: handlePending,
         [registerUser.fulfilled](state, action) {
             state.user = action.payload.user
             state.token = action.payload.token
             state.isLogginIn = true
+            state.isLoading = false
         },
+        [registerUser.rejected]: handleRejected,
+        [logIn.pending]: handlePending,
         [logIn.fulfilled](state, action) {
             state.user = action.payload.user
             state.token = action.payload.token
             state.isLogginIn = true
+            state.isLoading = false
         },
+        [logIn.rejected]: handleRejected,
+        [logOut.pending]: handlePending,
         [logOut.fulfilled](state, payload) {
             state.user = { name: null, email: null }
             state.token = null
             state.isLogginIn = false
+            state.isLoading = false
+        },
+        [logOut.rejected]: handleRejected,
+        [refreshCurrentUser.pending](state) {
+            state.isLoading = true
+            state.isUserLoading = true
         },
         [refreshCurrentUser.fulfilled](state, action) {
             state.user = action.payload
             state.isLogginIn = true
+            state.isLoading = false
+            state.isUserLoading = false
+        },
+        [refreshCurrentUser.rejected](state, action) {
+            state.isLoading = false
+            state.isUserLoading = false
+            state.error = action.payload
         }
     }
 })

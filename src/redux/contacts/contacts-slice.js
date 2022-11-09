@@ -16,9 +16,6 @@ const contactsSlice = createSlice({
     isLoading: false,
     error: null,
   },
-  // reducers: {
-  //   refreshContactsList: (state) => state.items = []
-  // },
     extraReducers: {
         [fetchContacts.pending]: handlePending,
         [fetchContacts.fulfilled](state, action) { 
@@ -44,6 +41,4 @@ const contactsSlice = createSlice({
   }
 })
 
-// export const contactsReduceri = contactsSlice.reducer;
-// export const { refreshContactsList } = contactsSlice.actions;
 export default contactsSlice.reducer;

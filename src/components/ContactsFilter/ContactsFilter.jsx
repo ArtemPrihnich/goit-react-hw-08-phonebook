@@ -1,14 +1,10 @@
 import React from 'react'
-// import { nanoid } from 'nanoid'
-// import { Box, Input, Label } from './ContactsFilter.styled'
 import { getFilter } from 'redux/filter/filter-selectors';
 import { useSelector, useDispatch } from 'react-redux'
 import { setFilter } from 'redux/filter/filter-slice';
 import { Flex, Heading, Input } from '@chakra-ui/react';
 
 export default function ContactsFilter() {
-    // const filterInpuId = nanoid();
-
     const filter = useSelector(getFilter)
     const dispatch = useDispatch()
 

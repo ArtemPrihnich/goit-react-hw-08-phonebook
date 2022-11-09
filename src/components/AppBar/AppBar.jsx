@@ -1,12 +1,12 @@
+import React from 'react'
 import { PhoneIcon } from '@chakra-ui/icons'
 import { Box, Flex, Text } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { getIsLogIn } from 'redux/auth/auth-selectors'
 import NavElements from 'components/NavElements/NavElements'
 import UserAuthMenu from 'components/UserAuthMenu/UserAuthMenu'
 import UserMenu from 'components/UserMenu/UserMenu'
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { getIsLogIn } from 'redux/auth/auth-selectors'
 
 export default function AppBar() {
     const isLogginIn = useSelector(getIsLogIn)

@@ -3,11 +3,13 @@ import { nanoid } from 'nanoid'
 import { useSelector, useDispatch } from 'react-redux'
 import { getFilteredContacts } from 'redux/contacts/contacts-selectors';
 import { addContact } from 'redux/contacts/contacts-operations';
-import { FormLabel, FormControl, Input, Button } from '@chakra-ui/react';
+import { FormLabel, FormControl, Input, Button, useToast } from '@chakra-ui/react';
 
 export default function ContactsForm() {
     const contacts = useSelector(getFilteredContacts)
+    const toast = useToast()
     const dispatch = useDispatch()
+
     const [name, setName] = useState('')
     const [number, setNumber] = useState('')
 
@@ -31,13 +33,20 @@ export default function ContactsForm() {
 
     const onAddContact = (contact) => {
         if (onDuplicatingName(contact)) {
-            // return Notify.failure(`This contact: (${contact.name}) is already in your contact book`);
-            return alert('Contact now da')
+            return toast({
+                title: 'Сontact already created.',
+                description: "This contact is already on your list.",
+                status: 'warning',
+                duration: 3000,
+                isClosable: true,
+                position: 'top-right'
+            })
         }
 
         dispatch(addContact(contact))
         setName('')
         setNumber('')
+
     }
 
     const onDuplicatingName = ({ name }) => {

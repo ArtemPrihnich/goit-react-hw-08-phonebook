@@ -1,11 +1,10 @@
+import ErrorNotify from 'components/ErrorNotify/ErrorNotify';
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchContacts } from "redux/contacts/contacts-operations";
 import { getError, getFilteredContacts, getIsLoading } from 'redux/contacts/contacts-selectors';
-import { deleteContact } from 'redux/contacts/contacts-operations';
-import ErrorNotify from 'components/ErrorNotify/ErrorNotify';
+import { deleteContact, fetchContacts } from 'redux/contacts/contacts-operations';
 import { Box, SimpleGrid, Avatar, Flex, Progress, IconButton } from '@chakra-ui/react';
-import { PhoneIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { PhoneIcon, DeleteIcon } from '@chakra-ui/icons';
 
 export default function ContactsList() {
     const contacts = useSelector(getFilteredContacts)
@@ -41,7 +40,6 @@ export default function ContactsList() {
                                 </Flex>
                             </Box>
                             <Flex alignItems='center'>
-                                <IconButton aria-label='Change button' icon={<EditIcon w={5} h={5} />} onClick={null}></IconButton>
                                 <IconButton aria-label='Delete button' icon={<DeleteIcon w={5} h={5} />} onClick={() => removeContact(id)}></IconButton>
                             </Flex>
                         </Flex>
@@ -51,8 +49,3 @@ export default function ContactsList() {
         </>
     )
 }
-
-
-// <Flex align='center' border='1px solid gray' borderRadius='4px' pt='2' pb='2' pl='4' pr='4' fontSize='xl' key={id}>
-//     <Avatar size='xs' mr='2' /> {name} <PhoneIcon size='xm' mr='2' /> {number} <button onClick={() => removeContact(id)}>delete</button>
-// </Flex>
