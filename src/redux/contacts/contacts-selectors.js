@@ -4,6 +4,8 @@ export const getItems = state => state.contacts.items
 
 export const getError = state => state.contacts.error
 
+export const getFirstLoadingState = state => state.contacts.firstLoading
+
 export const getFilteredContacts = ({ contacts, filter }) => {   
   const contactss = contacts.items
   const filterr = filter

@@ -4,6 +4,8 @@ import { Box, Container, Flex, Spinner } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { getLoadingUserStatus } from 'redux/auth/auth-selectors'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Layout() {
     const isUserLoading = useSelector(getLoadingUserStatus)
@@ -14,6 +16,7 @@ export default function Layout() {
                 isUserLoading ? <Flex justify='center' align='center' h='100vh'><Spinner w='100px' h='100px' /></Flex> : (
                     <>
                         <AppBar />
+                        <ToastContainer />
                         <Container maxW='container.xl'>
                             <Suspense>
                                 <Outlet />

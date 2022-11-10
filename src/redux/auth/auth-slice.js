@@ -1,13 +1,40 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { logIn, logOut, refreshCurrentUser, registerUser } from '../auth/auth-operations'
+import { toast } from 'react-toastify';
 
 const handlePending = state => {
   state.isLoading = true;
 };
+
 const handleRejected = (state, action) => {
-  state.isLoading = false;
-  state.error = action.payload;
+    state.isLoading = false;
+    state.error = action.payload;
+    toast(`Oops, something's wrong ${state.error}`, toastError)
 };
+
+const toastError = {
+    position: "top-right",
+    type: 'error',
+    autoClose: 1500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+}
+
+const toastSuccess = {
+    position: "top-right",
+    type: 'success',
+    autoClose: 1500,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+}
 
 const initialState = {
     user: { name: null, email: null },
@@ -28,6 +55,7 @@ const authSlice = createSlice({
             state.token = action.payload.token
             state.isLogginIn = true
             state.isLoading = false
+            toast('Success register.', toastSuccess)
         },
         [registerUser.rejected]: handleRejected,
         [logIn.pending]: handlePending,
@@ -36,6 +64,7 @@ const authSlice = createSlice({
             state.token = action.payload.token
             state.isLogginIn = true
             state.isLoading = false
+            toast('Success login.', toastSuccess)
         },
         [logIn.rejected]: handleRejected,
         [logOut.pending]: handlePending,
