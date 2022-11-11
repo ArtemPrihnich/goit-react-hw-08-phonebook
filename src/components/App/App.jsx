@@ -7,6 +7,7 @@ import Layout from 'components/Layout/Layout';
 import Home from 'pages/Home';
 import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
 import PublicRoute from 'components/PublicRoute/PublicRoute';
+import NotFound from 'pages/NotFound';
 
 const Contacts = lazy(() => import('../../pages/Contacts'))
 const RegisterForm = lazy(() => import('../../pages/RegisterForm'))
@@ -31,6 +32,7 @@ export default function App() {
           <Route path='/register' element={<RegisterForm />} />
         </Route>
       </Route>
+      <Route path='*' element={<NotFound />} />
     </Routes>
   )
 }
