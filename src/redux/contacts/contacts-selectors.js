@@ -6,6 +6,10 @@ export const getError = state => state.contacts.error
 
 export const getFirstLoadingState = state => state.contacts.firstLoading
 
+export const getDeleteOperationResult = state => state.contacts.operationDelete
+
+export const getChangeOperationResult = state => state.contacts.operationChange
+
 export const getFilteredContacts = ({ contacts, filter }) => {   
   const contactss = contacts.items
   const filterr = filter

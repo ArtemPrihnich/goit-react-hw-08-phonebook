@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { nanoid } from 'nanoid'
 import { useSelector, useDispatch } from 'react-redux'
-import { getFilteredContacts } from 'redux/contacts/contacts-selectors';
+import { getFilteredContacts, getIsLoading } from 'redux/contacts/contacts-selectors';
 import { addContact } from 'redux/contacts/contacts-operations';
 import { FormLabel, FormControl, Input, Button } from '@chakra-ui/react';
 import { toast } from 'react-toastify'
 
 export default function ContactsForm() {
     const contacts = useSelector(getFilteredContacts)
+    const loading = useSelector(getIsLoading)
     const dispatch = useDispatch()
 
     const [name, setName] = useState('')
@@ -65,7 +66,7 @@ export default function ContactsForm() {
             <Input type='text' name='name' value={name} id={contactNameInpuId} onChange={handleChange} borderColor='gray.400' placeholder='Ivan Ivanov' />
             <FormLabel htmlFor={contactNumberInputId}>Number</FormLabel>
             <Input type='number' name='number' value={number} id={contactNumberInputId} onChange={handleChange} borderColor='gray.400' placeholder='+38 (012) 345 67 89' />
-            <Button colorScheme='blackAlpha' ml='6' mt='4' type='submit'>Add Contact</Button>
+            <Button colorScheme='blackAlpha' isLoading={loading} loadingText='Adding contact' ml='6' mt='4' type='submit'>Add Contact</Button>
         </FormControl>
     )
 }

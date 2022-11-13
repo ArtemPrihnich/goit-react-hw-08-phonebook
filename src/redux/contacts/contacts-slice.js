@@ -6,9 +6,9 @@ const handlePending = state => {
   state.isLoading = true;
 };
 const handleRejected = (state, action) => {
-  state.isLoading = false;
-  state.error = action.payload;
-  toast(`Oops, something's wrong ${action.payload}`, toastError)
+    state.isLoading = false;
+    state.error = action.payload;
+    toast(`Oops, something's wrong ${action.payload}`, toastError)
 };
 
 const toastError = {
@@ -54,6 +54,8 @@ const contactsSlice = createSlice({
     isLoading: false,
     firstLoading: false,
     error: null,
+    operationDelete: null,
+    operationChange: null
   },
     extraReducers: {
         [fetchContacts.pending](state) {
@@ -75,22 +77,34 @@ const contactsSlice = createSlice({
             toast(`Contact ${action.payload.name} successfully added`, toastSuccess)
         },
         [addContact.rejected]:handleRejected,
-        [deleteContact.pending]: handlePending,
+        [deleteContact.pending](state, action) {
+            state.operationDelete = `${action.meta.arg}`
+        },
         [deleteContact.fulfilled](state, action) {
-            state.isLoading = false
+            state.operationDelete = null
             state.error = null
             state.items = state.items.filter(item => item.id !== action.payload.id)
             toast(`Contact ${action.payload.name} successfully removed`, toastInfo)
         },
-        [deleteContact.rejected]: handleRejected,
-        [changeContact.pending]: handlePending,
+        [deleteContact.rejected](state, action) {
+            state.operationDelete = null;
+            state.error = action.payload;
+            toast(`Oops, something's wrong ${action.payload}`, toastError)
+        },
+        [changeContact.pending](state, action) {
+            state.operationChange = `${action.meta.arg.id}`
+        },
         [changeContact.fulfilled](state, action) {
-            state.isLoading = false
+            state.operationChange = null
             state.error = null
             state.items = state.items.map(item => item.id === action.payload.id ? { ...action.payload } : item)
             toast(`Contact ${action.payload.name} successfully changed`, toastInfo)
         },
-        [changeContact.rejected]: handleRejected,
+        [changeContact.rejected](state, action) {
+            state.operationChange = null;
+            state.error = action.payload;
+            toast(`Oops, something's wrong ${action.payload}`, toastError)
+        },
   }
 })
 

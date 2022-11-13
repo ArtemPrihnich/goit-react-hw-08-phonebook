@@ -1,27 +1,18 @@
 import ErrorNotify from 'components/ErrorNotify/ErrorNotify';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getError, getFilteredContacts, getFirstLoadingState, getIsLoading } from 'redux/contacts/contacts-selectors';
+import { getChangeOperationResult, getDeleteOperationResult, getError, getFilteredContacts, getFirstLoadingState } from 'redux/contacts/contacts-selectors';
 import { deleteContact, fetchContacts } from 'redux/contacts/contacts-operations';
-import { Box, SimpleGrid, Avatar, Flex, Progress, IconButton } from '@chakra-ui/react';
+import { Box, SimpleGrid, Avatar, Flex, Progress, IconButton, Modal, ModalOverlay, ModalContent, ModalHeader, useDisclosure } from '@chakra-ui/react';
 import { PhoneIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
-
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-} from '@chakra-ui/react'
-import { useDisclosure } from '@chakra-ui/react'
-import { useState } from 'react';
 import ChangeContactInfoForm from 'components/ChangeContactInfoForm/ChangeContactInfoForm';
-
 
 export default function ContactsList() {
     const contacts = useSelector(getFilteredContacts)
     const firstLoading = useSelector(getFirstLoadingState)
-    const loading = useSelector(getIsLoading)
     const error = useSelector(getError)
+    const deleteOperation = useSelector(getDeleteOperationResult)
+    const changeOperation = useSelector(getChangeOperationResult)
     const dispatch = useDispatch()
 
     const { onOpen, isOpen, onClose } = useDisclosure()
@@ -64,9 +55,20 @@ export default function ContactsList() {
                                 </Flex>
                             </Box>
                             <Flex alignItems='center'>
-                                <IconButton aria-label='Change button' isLoading={loading} icon={<EditIcon w={5} h={5} />} onClick={() => handleChangeBtnClick({ name, number, id })}></IconButton>
-                                <IconButton aria-label='Delete button' isLoading={loading} icon={<DeleteIcon w={5} h={5} />} onClick={() => removeContact(id)}></IconButton>
-                                {/* <IconButton aria-label='Delete button' id={id} icon={<DeleteIcon w={5} h={5} />} onClick={(e) => removeContact(e, id)}></IconButton> */}
+                                <IconButton
+                                    aria-label='Change button'
+                                    isLoading={changeOperation === id}
+                                    icon={<EditIcon w={5} h={5} />}
+                                    onClick={() => handleChangeBtnClick({ name, number, id })}>
+
+                                </IconButton>
+                                <IconButton
+                                    aria-label='Delete button'
+                                    isLoading={deleteOperation === id}
+                                    icon={<DeleteIcon w={5} h={5} />}
+                                    onClick={() => removeContact(id)}>
+
+                                </IconButton>
                             </Flex>
                         </Flex>
 
